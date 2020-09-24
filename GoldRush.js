@@ -1,5 +1,3 @@
-const Matrix = require('../../Personal-Exercises/week-7/week-7-IdanShalem/Day-3/Matrices/Exercise/matrices-lesson-exercises-master/src/Matrix')
-
 class GoldRush extends Matrix {
     
     constructor(rowNum, colNum){
@@ -11,35 +9,28 @@ class GoldRush extends Matrix {
 
     loadBoard(){
         this.generatePlayers()
-        this.generateBlocks()
-        this.generateCoins()
+        this.generateSquares('b')
+        this.generateSquares('c')
     }
 
     generatePlayers() {
-        this.alter(this.players[1].row, this.players[1].col, 1)
-        this.alter(this.players[2].row, this.players[2].col, 2)
+        this.alter(this.players[1].row, this.players[1].col, '1')
+        this.alter(this.players[2].row, this.players[2].col, '2')
     }
 
-    generateBlocks() {
-        let numCoins = Math.floor(Math.random() * (((this.rowNums + this.colNums) - 2) / 2)) + this.rowNums 
-        while(numCoins > 0) {
-            let row = Math.floor((Math.random() * this.rowNums))
-            let col = Math.floor((Math.random() * this.colNums))
-            if(this.get(row, col) === '.') {
-                this.alter(row, col, 'b')
-                numCoins--
-            }
+    generateSquares(val) {
+        let numSquares
+        if(val === 'b') {
+            numSquares = Math.floor( Math.random() * (( this.rowNums + this.colNums - 2) / 2) ) + this.rowNums
+        } else {
+            numSquares = Math.floor(Math.random() * ((this.rowNums * this.colNums - 2) / 2)) + this.rowNums
         }
-    }
-
-    generateCoins() {
-        let numCoins = Math.floor(Math.random() * (((this.rowNums * this.colNums) - 2) / 2)) + this.rowNums 
-        while(numCoins > 0) {
+        while(numSquares > 0) {
             let row = Math.floor((Math.random() * this.rowNums))
             let col = Math.floor((Math.random() * this.colNums))
             if(this.get(row, col) === '.') {
-                this.alter(row, col, 'c')
-                numCoins--
+                this.alter(row, col, val)
+                numSquares--
             }
         }
     }
@@ -54,7 +45,7 @@ class GoldRush extends Matrix {
             if(this.get(this.players[player].row, this.players[player].col) === 'c') {
                 this.players[player].points += 10
             }
-            this.alter(this.players[player].row, this.players[player].col, player) 
+            this.alter(this.players[player].row, this.players[player].col, `${player}`) 
         } else {
             return false
         }

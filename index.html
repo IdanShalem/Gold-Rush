@@ -8,7 +8,27 @@
 </head>
 <body>
     
+    <div id="playground">
+        <div id="board-container"></div>
+        <div id="score"></div>
+        <div id="inputs">
+            <input id="rows-input" type="number" placeholder="rows">
+            <input id="columns-input" type="number" placeholder="columns">
+            <button id="start-game">START</button>
+        </div>
+    </div>
+    
+    <script id="matrix-template" type="text/x-handlebars-template">
+        {{#each row}}
+            <div class="square">
+                <div class="s{{this}}"></div>
+            </div>  
+        {{/each}}
+    </script>
 
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script src="./node_modules/handlebars/dist/handlebars.js"></script>
+    <script src="./Matrix.js"></script>
     <script src="./GoldRush.js"></script>
     <script src="./Render.js"></script>
     <script src="./main.js"></script>
