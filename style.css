@@ -8,8 +8,10 @@
     border: 2px grey groove;
 }
 
+
 #board-container{
     display: grid;
+    height: 100%;
 }
 
 #inputs {

@@ -9,7 +9,7 @@
 <body>
     
     <div id="playground">
-        <div id="board-container"></div>
+        <div id="board"></div>
         <div id="score"></div>
         <div id="inputs">
             <input id="rows-input" type="number" placeholder="rows">
@@ -19,11 +19,15 @@
     </div>
     
     <script id="matrix-template" type="text/x-handlebars-template">
-        {{#each row}}
-            <div class="square">
-                <div class="s{{this}}"></div>
-            </div>  
-        {{/each}}
+        <div id="board-container">
+            {{#each matrix}}
+                {{#each this}}
+                    <div class="square">
+                        <div class="s{{this}}"></div>
+                    </div>  
+                {{/each}}
+            {{/each}}
+        </div>
     </script>
 
     <script src="./node_modules/jquery/dist/jquery.js"></script>
