@@ -12,28 +12,37 @@ const keyBoard = {
     39: {key: 'right-arrow', direction: 'right', player:2}
 }
 
+const matrixSizes = {
+    1: {size: 7},
+    2: {size: 10},
+    3: {size: 15},
+    4: {size: 20}
+}
+
 $('#start-game').on('click', function() {
-    const   rows    = parseInt($('#rows-input').val()),
-            columns  = parseInt($('#columns-input').val())
-    
-    board = new GoldRush(rows, columns)
-    render.renderMatrix(board.matrix)
-    $('#board-container').css('grid-template-columns', `repeat(${rows}, 1fr`)
-    $('#board-container').css('grid-template-rows', `repeat(${columns}, 1fr`)
+    const sizeSelected = $( "#matrix-select option:selected" ).val(),
+            rowNcols = matrixSizes[sizeSelected].size
+    board = new GoldRush(rowNcols, rowNcols)
+    render.renderMatrix(board.matrix, rowNcols, rowNcols)
+    render.renderScore([{p1: board.players[1].points, p2: board.players[2].points}])
 })
 
 
-$(document).keypress(function (e) {
-    console.log(typeof e.which)
-    // if(board.matrix){
-    //     console.log(keyBoard[87])
-        // if(keyBoard[e.which]){
-        //     console.log(keyBoard[e.which].player, keyBoard[e.which].direction)
-        //     // board.movePlayer(keyBoard[e.which].player, keyBoard[e.which].direction)
-        //     // render.renderMatrix(board.matrix) 
-        // }
+$(document).keydown(function (e) {
+    if(board){
+        if(keyBoard[e.which]){
+            board.movePlayer(keyBoard[e.which].player, keyBoard[e.which].direction)
+            render.renderMatrix(board.matrix, board.rowNums, board.colNums) 
+            render.renderScore([{p1: board.players[1].points, p2: board.players[2].points}])
+            if(board.numCoins === 0) {
+                board.players[1].points === board.players[2].points ?
+                    render.renderWinner(0) :
+                    board.players[1].points > board.players[2].points ?
+                    render.renderWinner(1) : render.renderWinner(2)
+            }
+        }
         
-    // }
+    }
     
 
 })

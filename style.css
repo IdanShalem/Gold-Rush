@@ -1,44 +1,97 @@
-
 #playground{
     display: grid;
     height: 95vh;
     width: 90vw;
     grid-template-rows: 80% 10% 10%;
     margin: auto;
-    border: 2px grey groove;
+    border: 2px rgb(128, 128, 128) groove;
+    font-family: 'Merriweather Sans', sans-serif;
 }
 
+#board {
+    display: grid;
+}
 
 #board-container{
     display: grid;
     height: 100%;
 }
 
+#score{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 2px groove grey;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+.score-announce {
+    justify-self: center;
+    align-self: center;
+    font-size: 1.8em;
+}
+
+#score1 {
+    color: blue;
+}
+
+#score2 {
+    color: red;
+}
+
+#player-1-score {
+    background-color: blue;
+    border-right: 3px rgb(128, 128, 128) groove;
+}
+
+#player-2-score {
+    background-color: red;
+}
+
 #inputs {
     display: grid;
-    grid-template-columns: 20% 20% 60%;
+    border: 2px groove grey;
+    grid-template-columns: 50% 50%;
+}
+
+#matrix-select {
+    background-color: rgb(160, 225, 255);
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Merriweather Sans', sans-serif;
 }
 
 #start-game{
-    background-color: seagreen;
+    background-color: rgb(255, 119, 194);
     outline: none;
+    border: none;
+    font-family: 'Merriweather Sans', sans-serif;
+    font-weight: bold;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+#start-game:active{
+    background-color: rgb(105, 214, 152);
 }
 
 .square{
     display: grid;
     border: 1px solid black;
-    background-color: rgb(238, 237, 237);
+    background-color: rgb(224, 255, 253);
 }
 
 .sb{
     height: 100%;
     width: 100%;
-    background-color: rgb(214, 87, 14);
+    background-color: rgb(2, 248, 187);
 }
 
 .sc{
     height: 30%;
-    width: 15%;
+    width: 12.5%;
     border-radius: 50%;
     background-color: rgb(243, 205, 35);
     justify-self: center;
@@ -47,7 +100,7 @@
 
 .s1{
     height: 50%;
-    width: 25%;
+    width: 20%;
     border-radius: 50%;
     background-color: blue;
     justify-self: center;
@@ -56,9 +109,9 @@
 
 .s2{
     height: 50%;
-    width: 25%;
+    width: 20%;
     border-radius: 50%;
-    background-color: green;
+    background-color: red;
     justify-self: center;
     align-self: center;
 }

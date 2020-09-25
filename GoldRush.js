@@ -4,6 +4,7 @@ class GoldRush extends Matrix {
         super(rowNum, colNum)
         this.players = { 1: {row: 0, col: 0, points: 0}, 2: {row: rowNum - 1, col: colNum - 1, points: 0}}
         this.directions = {up: {name:"row", val:-1}, down: {name:"row", val:1}, left: {name:'col',val:-1}, right: {name:'col',val:1}}
+        this.numCoins = 0
         this.loadBoard = this.loadBoard()
     }
 
@@ -24,6 +25,7 @@ class GoldRush extends Matrix {
             numSquares = Math.floor( Math.random() * (( this.rowNums + this.colNums - 2) / 2) ) + this.rowNums
         } else {
             numSquares = Math.floor(Math.random() * ((this.rowNums * this.colNums - 2) / 2)) + this.rowNums
+            this.numCoins = numSquares
         }
         while(numSquares > 0) {
             let row = Math.floor((Math.random() * this.rowNums))
@@ -44,6 +46,7 @@ class GoldRush extends Matrix {
             this.players[player].row = nextDirection.row 
             if(this.get(this.players[player].row, this.players[player].col) === 'c') {
                 this.players[player].points += 10
+                this.numCoins--
             }
             this.alter(this.players[player].row, this.players[player].col, `${player}`) 
         } else {
@@ -52,7 +55,6 @@ class GoldRush extends Matrix {
     }
 
     validMove(nextDirection) {
-        console.log(nextDirection)
         if(nextDirection.row >= 0 && nextDirection.col >= 0 && 
                 nextDirection.row < this.rowNums && nextDirection.col < this.colNums) {
             if(this.get(nextDirection.row, nextDirection.col) === '.' || this.get(nextDirection.row, nextDirection.col) === 'c') {
