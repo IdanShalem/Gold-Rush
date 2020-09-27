@@ -18,11 +18,10 @@ io.on('connection', (socket) => {
 
 io.on('connection', (socket) => {
     socket.on('player moved', (board) => {
-        // console.log(board)
         io.emit('player moved', board)
     });
 });
 
-http.listen(port, function(){
+http.listen(process.env.PORT || port, function(){
     console.log(`Server is up and runing on localhost:${port}`)
 })
