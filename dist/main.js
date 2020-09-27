@@ -1,5 +1,7 @@
 const render = new Render()
 let board
+const socket = io()
+ 
 
 const keyBoard = {
     87: {key: 'w', direction: 'up', player:1}, 
@@ -19,12 +21,27 @@ const matrixSizes = {
     4: {size: 20}
 }
 
+socket.on('player moved', function(boardBrodcast){
+    if(board){
+        board.matrix = boardBrodcast.matrix
+        board.players = boardBrodcast.players
+    } else {
+        board = new GoldRush(boardBrodcast.rowNums, boardBrodcast.colNums)
+        board.matrix = boardBrodcast.matrix
+        board.players = boardBrodcast.players
+        board.rowNums = boardBrodcast.rowNums
+        board.colNums = boardBrodcast.colNums
+    }
+    render.renderMatrix(board.matrix, board.rowNums, board.colNums) 
+    render.renderScore([{p1: board.players[1].points, p2: board.players[2].points}])
+});
+
+
 $('#start-game').on('click', function() {
     const sizeSelected = $( "#matrix-select option:selected" ).val(),
             rowNcols = matrixSizes[sizeSelected].size
     board = new GoldRush(rowNcols, rowNcols)
-    render.renderMatrix(board.matrix, rowNcols, rowNcols)
-    render.renderScore([{p1: board.players[1].points, p2: board.players[2].points}])
+    socket.emit('player moved', board)
 })
 
 
@@ -32,17 +49,18 @@ $(document).keydown(function (e) {
     if(board){
         if(keyBoard[e.which]){
             board.movePlayer(keyBoard[e.which].player, keyBoard[e.which].direction)
-            render.renderMatrix(board.matrix, board.rowNums, board.colNums) 
-            render.renderScore([{p1: board.players[1].points, p2: board.players[2].points}])
+            socket.emit('player moved', board)
             if(board.numCoins === 0) {
                 board.players[1].points === board.players[2].points ?
                     render.renderWinner(0) :
                     board.players[1].points > board.players[2].points ?
                     render.renderWinner(1) : render.renderWinner(2)
             }
+            
         }
         
     }
+    
     
 
 })
