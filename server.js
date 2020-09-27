@@ -3,10 +3,11 @@ const   express     = require('express'),
         path        = require('path'),
         port        = 3000,
         app         = express(),
+        mongoose    = require('mongoose')
         http        = require('http').createServer(app),
         io = require('socket.io')(http)
 
-
+mongoose.connect(process.env.MONGODB_URI||'mongodb://localhost/goldrush')
 app.use(express.static(path.join(__dirname, 'node_modules')))
 app.use(express.static(path.join(__dirname, 'dist')))
 app.use(bodyparser.json())
