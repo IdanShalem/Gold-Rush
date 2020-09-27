@@ -27,12 +27,14 @@ socket.on('player moved', function(boardBrodcast){
         board.players = boardBrodcast.players
         board.rowNums = boardBrodcast.rowNums
         board.colNums = boardBrodcast.colNums
+        board.numCoins = boardBrodcast.numCoins
     } else {
         board = new GoldRush(boardBrodcast.rowNums, boardBrodcast.colNums)
         board.matrix = boardBrodcast.matrix
         board.players = boardBrodcast.players
         board.rowNums = boardBrodcast.rowNums
         board.colNums = boardBrodcast.colNums
+        board.numCoins = boardBrodcast.numCoins
     }
     render.renderMatrix(board.matrix, board.rowNums, board.colNums) 
     render.renderScore([{p1: board.players[1].points, p2: board.players[2].points}])
