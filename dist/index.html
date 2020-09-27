@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Gold Rush</title>
+</head>
+<body>
+    
+    <div id="playground">
+        <div id="board"></div>
+        <div id="score"></div>
+        <div id="inputs">
+            <select name="matrix" id="matrix-select">
+                <option value="" disabled selected>Select Board Size</option>
+                <option value="1">7 X 7</option>
+                <option value="2">10 X 10</option>
+                <option value="3">15 X 15</option>
+                <option value="4">20 X 20</option>
+            </select>
+            <button id="start-game">START</button>
+        </div>
+    </div>
+    
+    <script id="score-template" type="text/x-handlebars-template">
+        {{#each score}}
+            <div id="player-1-score">Player1: {{p1}}</div>
+            <div id="player-2-score">Player2: {{p2}}</div>
+        {{/each}}
+    </script>
+
+    <script id="matrix-template" type="text/x-handlebars-template">
+        <div id="board-container" >
+            {{#each matrix}}
+                {{#each this}}
+                    <div class="square">
+                        <div class="s{{this}}"></div>
+                    </div>  
+                {{/each}}
+            {{/each}}
+        </div>
+    </script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="handlebars/dist/handlebars.js"></script>
+    <script src="./Matrix.js"></script>
+    <script src="./GoldRush.js"></script>
+    <script src="./Render.js"></script>
+    <script src="./main.js"></script> 
+
+</body>
+</html>
