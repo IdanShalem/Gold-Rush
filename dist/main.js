@@ -25,6 +25,8 @@ socket.on('player moved', function(boardBrodcast){
     if(board){
         board.matrix = boardBrodcast.matrix
         board.players = boardBrodcast.players
+        board.rowNums = boardBrodcast.rowNums
+        board.colNums = boardBrodcast.colNums
     } else {
         board = new GoldRush(boardBrodcast.rowNums, boardBrodcast.colNums)
         board.matrix = boardBrodcast.matrix
